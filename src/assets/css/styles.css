@@ -1,0 +1,159 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    font-family: 'Saira Semi Condensed', sans-serif;
+    background-color: red;
+    background: url(../img/turquoise-texture-background.jpg);
+    background-size: contain;
+}
+div#app {
+    max-width: 500px;
+    height: 100%;
+    margin: 0 auto;
+    font-size: 1.5rem;
+}
+div#app > div.row {
+    height: 100%;
+}
+div#app-logo {
+    font-family: logo-uk;
+    font-size: 140%;
+    text-align: center;
+    padding: 1rem 0rem;
+    height: 5rem;
+    margin-bottom: .3rem;
+    text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.58);
+}
+div#app-logo>span {
+    font-family: logo-2;
+    font-weight: 800;
+    position: relative;
+    top: .3rem;
+    left: -.1rem;
+    text-shadow: 0px 0px 21px rgba(255, 255, 255, 1)
+}
+div.app-div-margins {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+button.app-button {
+    font-family: 'Saira Semi Condensed', sans-serif;
+    font-size: 1.5rem;
+    background-color: #e5986e;
+    overflow: hidden;
+}
+.show-loggedin {
+    display: none;
+}
+.show-not-loggedin {
+    display: block;
+}
+input.app-input {
+    font-size: 1.5rem;
+    margin-bottom: .5rem;
+}
+div#app-score {
+    font-size: 2rem;
+    height: 3rem;
+    text-align: center;
+    margin-bottom: .5rem;
+}
+button.app-set-button {
+    font-family: 'Tahoma', monospace;
+    font-size: 2.5rem;
+    background-color: #e5986e;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 3rem;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+}
+div#app-set-div {
+    margin-top: .5rem;
+}
+div#app-set-div>div {
+    display: flex;
+    justify-content: center;
+}
+input.app-input-id {
+    width: 14%;
+    clear: left;
+    float: left;
+}
+input.app-input-name {
+    width: 86%;
+    float: left;
+}
+div.app-div-scrollbar {
+    position: absolute;
+    height: 75%;
+    overflow: auto;
+}
+div.app-div-scrollbar2 {
+    position: absolute;
+    height: 87%;
+    overflow: auto;
+}
+div.app-div-underscrollbar {
+    position: absolute;
+    bottom: 0;
+}
+input.app-input-check {
+    width: 10%;
+    clear: left;
+    float: left;
+    height: 2.5rem;
+    margin-right: 3%;
+}
+input.app-input-id-aftercheck {
+    width: 14%;
+    float: left;
+}
+input.app-input-name-aftercheck {
+    width: 73%;
+    float: left;
+}
+select.app-select {
+    width: 100%;
+    height: 3rem;
+    margin-bottom: .5rem;
+}
+button.app-score-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 1.25rem;
+    background-color: #e5986e;
+    padding: 0;
+}
+button.app-score-button>i {
+    position: relative;
+    top: .1rem;
+}
+button.app-score-left {
+    margin-right: .5rem;
+    margin-bottom: .5rem;
+}
+button.app-score-right {
+    margin-left: .5rem;
+    margin-bottom: .5rem;
+}
+span.score {
+    padding-left: .5rem;
+    padding-right: .5rem;
+}
+i.app-fa {
+    color: black;
+    margin-right: .75rem;
+}
+i.app-fa-menu {
+    color: black;
+    margin-right: .75rem;
+
+}
+button.app-button-inline {
+    width: 47%;
+    margin-top: .5rem;
+    padding: .5rem 0rem;
+}
