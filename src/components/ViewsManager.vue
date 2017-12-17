@@ -11,18 +11,18 @@
         <button v-on:click="swapComponent('view-09')" class="btn app-button btn-block" type="submit">
             <i class="fa fa-arrow-right app-fa-menu"></i>NOWY MECZ
         </button>
-        <button class="btn app-button btn-block show-not-loggedin" type="submit" v-on:click="swapComponent('view-02')">
+        <button class="btn app-button btn-block" type="submit" v-on:click="/*swapComponent('view-02')*/" data-toggle="modal" data-target="#app-modal2">
             <i class="fa fa-user app-fa-menu"></i>LOGOWANIE
         </button>
-        <button class="btn app-button btn-block show-not-loggedin" type="submit" v-on:click="swapComponent('view-03')">
+        <button class="btn app-button btn-block" type="submit" v-on:click="/*swapComponent('view-03')*/" data-toggle="modal" data-target="#app-modal2">
             <i class="fa fa-user-plus app-fa-menu"></i>REJESTRACJA
         </button>
-        <button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-04')">
+        <button class="btn app-button btn-block" type="submit" v-on:click="/*swapComponent('view-04')*/" data-toggle="modal" data-target="#app-modal2">
             <i class="fa fa-archive app-fa-menu"></i>ARCHIWUM
         </button>
-        <button class="btn app-button btn-block show-loggedin" type="submit" v-on:click="">
+        <!--button class="btn app-button btn-block" type="submit" v-on:click="">
             <i class="fa fa-user app-fa-menu"></i>WYLOGUJ
-        </button>
+        </button-->
     </div>
     <div class="col-12 align-self-end app-div-margins">
         <button class="btn app-button btn-block" type="submit" data-toggle="modal" data-target="#app-modal1">
@@ -39,6 +39,22 @@
                     </button>
                 </div>
                 <div class="modal-body">Aby zakończyć zamknij kartę w przeglądarce</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="app-modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">UWAGA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"><center>Opcja niedostępna<br />Przepraszamy</center></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
                 </div>
@@ -70,15 +86,33 @@
     props: ['swapComponent']
   }
   var View07 = { // lista zawodników
-    template: `<div class="row"><div class="col-12 align-self-start app-div-margins app-div-scrollbar"><input type="text" class="app-input-id" id="form1ID"><input type="text" class="app-input-name" id="form1name"><input type="text" class="app-input-id" id="form2ID"><input type="text" class="app-input-name" id="form2name"><input type="text" class="app-input-id" id="form3ID"><input type="text" class="app-input-name" id="form3name"><input type="text" class="app-input-id" id="form4ID"><input type="text" class="app-input-name" id="form4name"><input type="text" class="app-input-id" id="form5ID"><input type="text" class="app-input-name" id="form5name"><input type="text" class="app-input-id" id="form6ID"><input type="text" class="app-input-name" id="form6name"><input type="text" class="app-input-id" id="form7ID"><input type="text" class="app-input-name" id="form7name"><input type="text" class="app-input-id" id="form8ID"><input type="text" class="app-input-name" id="form8name"><input type="text" class="app-input-id" id="form9ID"><input type="text" class="app-input-name" id="form9name"><input type="text" class="app-input-id" id="form10ID"><input type="text" class="app-input-name" id="form10name"><input type="text" class="app-input-id" id="form11ID"><input type="text" class="app-input-name" id="form11name"><input type="text" class="app-input-id" id="form12ID"><input type="text" class="app-input-name" id="form12name"><input type="text" class="app-input-id" id="form13ID"><input type="text" class="app-input-name" id="form13name"><input type="text" class="app-input-id" id="form14ID"><input type="text" class="app-input-name" id="form14name"></div><div class="col-12 align-self-end app-div-margins app-div-underscrollbar"><button class="btn app-button btn-block" type="submit" v-on:click=""><i class="fa fa-check-square app-fa-menu"></i>ZATWIERDŹ</button><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('previous')"><i class="fa fa-arrow-left app-fa-menu"></i>POWRÓT</button></div></div>`,
-    props: ['swapComponent']
+    template: `<div class="row"><div class="col-12 align-self-start app-div-margins app-div-scrollbar"><div v-for="(id, index) in this.$parent.players"><input min="1" max="24" type="number" class="app-input-id" v-model:value="id.id"><input type="text" maxlength="20" class="app-input-name" v-model:value="id.name"></div></div><div class="col-12 align-self-end app-div-margins app-div-underscrollbar"><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('previous')"><i class="fa fa-check-square app-fa-menu"></i>ZATWIERDŹ</button><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('previous')"><i class="fa fa-arrow-left app-fa-menu"></i>POWRÓT</button></div></div>`,
+    props: ['swapComponent','players']
   }
   var View08 = { // zmiana hasła
     template: `<div class="row"><div class="col-12 align-self-start app-div-margins"><input type="password" class="form-control app-input" id="user-password-old" placeholder="Stare hasło"><input type="password" class="form-control app-input" id="user-password" placeholder="Nowe hasło"><input type="password" class="form-control app-input" id="user-password2" placeholder="Powtórz nowe hasło"><button class="btn app-button btn-block" type="submit" v-on:click=""><i class="fa fa-check-square app-fa-menu"></i>ZATWIERDŹ</button></div><div class="col-12 align-self-end app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-04')"><i class="fa fa-arrow-left app-fa-menu"></i>POWRÓT</button></div></div>`,
     props: ['swapComponent']
   }
   var View09 = { // ekran przedmeczowy
-    template: `<div class="row"><div class="col-12 align-self-start app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-07b')"><i class="fa fa-list app-fa-menu"></i>SKŁAD</button><button class="btn app-button btn-block show-loggedin" type="submit" v-on:click=""><i class="fa fa-cloud-download app-fa-menu"></i>WCZYTAJ SKŁAD</button></div><div class="col-12 align-self-end app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-10')"><i class="fa fa-arrow-right app-fa-menu"></i>DALEJ</button><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-01')"><i class="fa fa-arrow-left app-fa-menu"></i>POWRÓT</button></div></div>`,
+    template: `<div class="row"><div class="col-12 align-self-start app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-07')"><i class="fa fa-list app-fa-menu"></i>WPROWADŹ SKŁAD</button><button class="btn app-button btn-block" type="submit" v-on:click="" data-toggle="modal" data-target="#app-modal1"><i class="fa fa-cloud-download app-fa-menu"></i>WCZYTAJ SKŁAD</button></div><div class="col-12 align-self-end app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-10')"><i class="fa fa-arrow-right app-fa-menu"></i>DALEJ</button><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-01')"><i class="fa fa-arrow-left app-fa-menu"></i>POWRÓT</button></div>
+    <div class="modal fade" id="app-modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">UWAGA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"><center>Opcja niedostępna<br />Przepraszamy</center></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    `,
     props: ['swapComponent']
   }
   var View10 = { // wybór zawodników na boisku
@@ -86,7 +120,7 @@
     props: ['swapComponent']
   }
   var View11 = { // ekran meczowy
-    template: `<div class="row"><div class="col-12 app-div-margins"><div class="align-self-start" id="app-score"><button class="btn app-score-button app-score-left text-center align-middle" type="submit" v-on:click=""><i class="fa fa-plus"></i></button><button class="btn app-score-button app-score-left text-center align-middle" type="submit" v-on:click=""><i class="fa fa-minus"></i></button><span class="score">0:0</span><button class="btn app-score-button app-score-right" type="submit" v-on:click=""><i class="fa fa-plus"></i></button><button class="btn app-score-button app-score-right" type="submit" v-on:click=""><i class="fa fa-minus"></i></button></div><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-12')"><b>Z</b>AGRYWKA</button><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-12')"><b>P</b>RZYJĘCIE</button><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-14')"><b>R</b>OZEGRANIE</button><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-12')"><b>A</b>TAK</button><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-12')"><b>B</b>LOK</button></div><div class="col-12 align-self-end app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-06')"><i class="fa fa-bar-chart app-fa-menu"></i>STATYSTYKI</button><button class="btn app-button app-button-inline" type="submit" v-on:click="swapComponent('view-10b')"><i class="fa fa-refresh app-fa-menu"></i>ZMIANA</button><button class="btn app-button app-button-inline pull-right" type="submit" data-toggle="modal" data-target="#app-modal1"><i class="fa fa-window-close app-fa-menu"></i>KONIEC</button></div><div class="modal fade" id="app-modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">UWAGA</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">Czy na pewno chcesz zakończyć mecz?</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">NIE</button><button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="swapComponent('view-01')">TAK</button></div></div></div></div></div>`,
+    template: `<div class="row"><div class="col-12 app-div-margins"><div class="align-self-start" id="app-score"><button class="btn app-score-button app-score-left text-center align-middle" type="submit" v-on:click=""><i class="fa fa-plus"></i></button><button class="btn app-score-button app-score-left text-center align-middle" type="submit" v-on:click=""><i class="fa fa-minus"></i></button><span class="score">0:0</span><button class="btn app-score-button app-score-right" type="submit" v-on:click=""><i class="fa fa-plus"></i></button><button class="btn app-score-button app-score-right" type="submit" v-on:click=""><i class="fa fa-minus"></i></button></div><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-12')"><b>Z</b>AGRYWKA</button><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-12')"><b>P</b>RZYJĘCIE</button><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-14')"><b>R</b>OZEGRANIE</button><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-12')"><b>A</b>TAK</button><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-12')"><b>B</b>LOK</button></div><div class="col-12 align-self-end app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-06')"><i class="fa fa-bar-chart app-fa-menu"></i>STATYSTYKI</button><button class="btn app-button app-button-inline" type="submit" v-on:click="swapComponent('view-10')"><i class="fa fa-refresh app-fa-menu"></i>ZMIANA</button><button class="btn app-button app-button-inline pull-right" type="submit" data-toggle="modal" data-target="#app-modal1"><i class="fa fa-window-close app-fa-menu"></i>KONIEC</button></div><div class="modal fade" id="app-modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">UWAGA</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">Czy na pewno chcesz zakończyć mecz?</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">NIE</button><button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="swapComponent('view-01')">TAK</button></div></div></div></div></div>`,
     props: ['swapComponent']
   }
   var View12 = { // wybór zawodnika do statystyki
@@ -106,9 +140,33 @@
     name: 'viewsManager',
     data() {
       return {
-        msg: 'Welcome to Your Vue.js App',
         currentComponent: 'view-01',
-        previousComponent: ''
+        previousComponent: '',
+        online: false,
+        currentSet: 0,
+        scoreA: 0,
+        scoreB: 0,
+        setting: [0,0,0,0,0,0],
+        players: [
+          {'id':1,'name':'','active':null},
+          {'id':2,'name':'','active':null},
+          {'id':3,'name':'','active':null},
+          {'id':4,'name':'','active':null},
+          {'id':5,'name':'','active':null},
+          {'id':6,'name':'','active':null},
+          {'id':7,'name':'','active':null},
+          {'id':8,'name':'','active':null},
+          {'id':9,'name':'','active':null},
+          {'id':10,'name':'','active':null},
+          {'id':11,'name':'','active':null},
+          {'id':12,'name':'','active':null},
+          {'id':13,'name':'','active':null},
+          {'id':14,'name':'','active':null}
+        ],
+        serve: [],
+        reception: [],
+        attack: [],
+        block: []
       }
     },
     components: {
@@ -142,6 +200,5 @@
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>

@@ -43,12 +43,6 @@ button.app-button {
     background-color: #e5986e;
     overflow: hidden;
 }
-.show-loggedin {
-    display: none;
-}
-.show-not-loggedin {
-    display: block;
-}
 input.app-input {
     font-size: 1.5rem;
     margin-bottom: .5rem;
@@ -81,6 +75,7 @@ input.app-input-id {
     width: 14%;
     clear: left;
     float: left;
+    text-align: center;
 }
 input.app-input-name {
     width: 86%;
