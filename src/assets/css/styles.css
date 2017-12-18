@@ -3,7 +3,6 @@ html, body {
     width: 100%;
     margin: 0;
     font-family: 'Saira Semi Condensed', sans-serif;
-    background-color: red;
     background: url(../img/turquoise-texture-background.jpg);
     background-size: contain;
 }
@@ -56,7 +55,7 @@ div#app-score {
 button.app-set-button {
     font-family: 'Tahoma', monospace;
     font-size: 2.5rem;
-    background-color: #e5986e;
+    background-color: #ea8148;
     width: 6rem;
     height: 6rem;
     border-radius: 3rem;
@@ -80,6 +79,7 @@ input.app-input-id {
 input.app-input-name {
     width: 86%;
     float: left;
+    padding-left: .5rem;
 }
 div.app-div-scrollbar {
     position: absolute;
@@ -105,10 +105,12 @@ input.app-input-check {
 input.app-input-id-aftercheck {
     width: 14%;
     float: left;
+    text-align: center;
 }
 input.app-input-name-aftercheck {
     width: 73%;
     float: left;
+    padding-left: .5rem;
 }
 select.app-select {
     width: 100%;
@@ -134,7 +136,7 @@ button.app-score-right {
     margin-left: .5rem;
     margin-bottom: .5rem;
 }
-span.score {
+input.score {
     padding-left: .5rem;
     padding-right: .5rem;
 }
@@ -151,4 +153,53 @@ button.app-button-inline {
     width: 47%;
     margin-top: .5rem;
     padding: .5rem 0rem;
+}
+button.playerNumberIcone {
+    text-align: center;
+    border: 0;
+    /* border-radius: 1rem; */
+    width: 2.3rem;
+    height: 2rem;
+    color: white;
+    /* background-color: black; */
+    background: url(../img/t-shirt.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-right: .5rem;
+    font-family: 'Saira Semi Condensed', sans-serif;
+}
+i.mark-fa {
+    font-size: 120%;
+    position: relative;
+    top: 2px;
+}
+i.perfect {
+    color: green;
+}
+i.good {
+    color: mediumblue;
+}
+i.neutral {
+    color: silver;
+}
+i.negative {
+    color: black;
+}
+i.error {
+    color: red;
+}
+div.set-field {
+    background-color: #e5986e;
+}
+div.set-net {
+    background-color: white;
+    width: 100%;
+    height: 1rem;
+}
+div.set-opponent {
+    background-color: #e5986e;
+    width: 100%;
+    height: 2rem;
+    margin: .5rem 0;
 }
