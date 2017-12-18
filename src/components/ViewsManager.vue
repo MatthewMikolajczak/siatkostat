@@ -567,13 +567,13 @@
                     reception += ((++counter) + '. ')
                     reception += '#' + receptionArray[player].id + ' '
                     reception += receptionArray[player].name + '<br>perfekcyjne '
-                    reception += (100*receptionArray[player].reception4/(receptionArray[player].reception4+receptionArray[player].reception3+receptionArray[player].reception2+receptionArray[player].reception1+receptionArray[player].reception0)) + '%, dobre ' + (100*receptionArray[player].reception3/(receptionArray[player].reception4+receptionArray[player].reception3+receptionArray[player].reception2+receptionArray[player].reception1+receptionArray[player].reception0)) + '%, suma ' + (receptionArray[player].reception4+receptionArray[player].reception3+receptionArray[player].reception2+receptionArray[player].reception1+receptionArray[player].reception0) + ', błędy ' + receptionArray[player].reception0 + '<br>'
+                    reception += Math.round(100*receptionArray[player].reception4/(receptionArray[player].reception4+receptionArray[player].reception3+receptionArray[player].reception2+receptionArray[player].reception1+receptionArray[player].reception0)) + '%, dobre ' + Math.round(100*receptionArray[player].reception3/(receptionArray[player].reception4+receptionArray[player].reception3+receptionArray[player].reception2+receptionArray[player].reception1+receptionArray[player].reception0)) + '%, suma ' + (receptionArray[player].reception4+receptionArray[player].reception3+receptionArray[player].reception2+receptionArray[player].reception1+receptionArray[player].reception0) + ', błędy ' + receptionArray[player].reception0 + '<br>'
                 }
             }
             // setting
             var setting = 'ROZEGRANIE:<br>'
             var setsSum = this.setting[0]+this.setting[1]+this.setting[2]+this.setting[3]+this.setting[4]+this.setting[5]
-            if(setsSum > 0) setting += '<table class="w-100"><tr><td>IV: ' + this.setting[3]/setsSum + '%</td><td>III: ' + this.setting[2]/setsSum + '%</td><td>II: ' + this.setting[1]/setsSum + '%</td></tr><tr><td>V: ' + this.setting[4]/setsSum + '%</td><td>VI: ' + this.setting[5]/setsSum + '%</td><td>I: ' + this.setting[0]/setsSum + '%</td></tr></table>'
+            if(setsSum > 0) setting += '<table class="w-100"><tr><td>IV: ' + Math.round(100*this.setting[3]/setsSum) + '%</td><td>III: ' + Math.round(100*this.setting[2]/setsSum) + '%</td><td>II: ' + Math.round(100*this.setting[1]/setsSum) + '%</td></tr><tr><td>V: ' + Math.round(100*this.setting[4]/setsSum) + '%</td><td>VI: ' + Math.round(100*this.setting[5]/setsSum) + '%</td><td>I: ' + Math.round(100*this.setting[0]/setsSum) + '%</td></tr></table>'
 
             // Displaying
             this.statsText = points + serve + attack + block + reception + setting
