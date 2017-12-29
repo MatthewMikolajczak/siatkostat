@@ -15,6 +15,50 @@ div#app {
 div#app > div.row {
     height: 100%;
 }
+div#loading {
+    height: 100%;
+    padding-top: 3rem;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    background-color: #4c97bf;
+}
+div.loading-circle{
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #4c97bf;
+  box-shadow: 60px -60px 0 2px #4c97bf, -60px -60px 0 2px #4c97bf, -60px 60px 0 2px #4c97bf, 60px 60px 0 2px #4c97bf, 0 0 0 2px #E94E3D;
+  animation: border .6s linear 100 forwards;
+}
+div.loading-text{
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    font: 18px sans-serif;
+    transition: opacity .2s ease;
+    margin-top: 50px;
+  }
+@keyframes border{
+  0% {
+    box-shadow: 60px -60px 0 2px #4c97bf, -60px -60px 0 2px #4c97bf, -60px 60px 0 2px #4c97bf, 60px 60px 0 2px #4c97bf, 0 0 0 2px #E94E3D;
+  }
+  25% {
+    box-shadow: 0 -125px 0 2px #4c97bf, -60px -60px 0 2px #4c97bf, -60px 60px 0 2px #4c97bf, 60px 60px 0 2px #4c97bf, 0 0 0 2px #fff;
+  }
+  50% {
+    box-shadow: 0 -125px 0 2px #4c97bf, -125px 0px 0 2px #4c97bf, -60px 60px 0 2px #4c97bf, 60px 60px 0 2px #4c97bf, 0 0 0 2px #fff;
+  }
+  75% {
+    box-shadow: 0 -125px 0 2px #4c97bf, -125px 0px 0 2px #4c97bf, 0px 125px 0 2px #4c97bf, 60px 60px 0 2px #4c97bf, 0 0 0 2px #fff;
+  }
+  100% {
+    box-shadow: 0 -125px 0 2px #4c97bf, -125px 0px 0 2px #4c97bf, 0px 125px 0 2px #4c97bf, 120px 40px 0 2px #4c97bf, 0 0 0 2px #fff;
+  }
+}
 div#app-logo {
     font-family: logo-uk;
     font-size: 140%;
@@ -75,6 +119,8 @@ input.app-input-id {
     clear: left;
     float: left;
     text-align: center;
+    padding-left: 0;
+    padding-right: 0;
 }
 input.app-input-name {
     width: 86%;
@@ -106,6 +152,8 @@ input.app-input-id-aftercheck {
     width: 14%;
     float: left;
     text-align: center;
+    padding-left: 0;
+    padding-right: 0;
 }
 input.app-input-name-aftercheck {
     width: 73%;
@@ -157,17 +205,17 @@ button.app-button-inline {
 button.playerNumberIcone {
     text-align: center;
     border: 0;
-    /* border-radius: 1rem; */
     width: 2.3rem;
     height: 2rem;
     color: white;
-    /* background-color: black; */
     background: url(../img/t-shirt.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
     margin-right: .5rem;
     font-family: 'Saira Semi Condensed', sans-serif;
+    padding-left: 0;
+    padding-right: 0;
 }
 i.mark-fa {
     font-size: 120%;
@@ -202,4 +250,25 @@ div.set-opponent {
     width: 100%;
     height: 2rem;
     margin: .5rem 0;
+}
+div.stats {
+    background-color: white;
+    padding: 3px 5px;
+    padding-bottom: 6px;
+    margin-bottom: 4px;
+}
+hr.stats-small {
+    margin-top: .1rem;
+    margin-bottom: .1rem;
+    border-width: 1px;
+    background-color: #cccccc;
+}
+table.stats {
+    width: 100%;
+    border-collapse: collapse;
+}
+tr.stats>td {
+    border: 2px solid #cccccc;
+    text-align: center;
+    padding: .5rem;
 }
