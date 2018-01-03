@@ -15,13 +15,13 @@ var View00 = { // ekran ładowania
           <button v-on:click="swapComponent('view-09')" class="btn app-button btn-block" type="submit">
               <i class="fa fa-arrow-right app-fa-menu"></i>NOWY MECZ
           </button>
-          <button class="btn app-button btn-block" type="submit" v-on:click="/*swapComponent('view-02')*/" data-toggle="modal" data-target="#app-modal2">
+          <button class="btn app-button btn-block" type="submit" v-on:click="/*swapComponent('view-02')*/ $parent.modalMessage = 'Opcja niedostępna. Przepraszamy!'" data-toggle="modal" data-target="#app-modal-warning">
               <i class="fa fa-user app-fa-menu"></i>LOGOWANIE
           </button>
           <button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-03')">
               <i class="fa fa-user-plus app-fa-menu"></i>REJESTRACJA
           </button>
-          <button class="btn app-button btn-block" type="submit" v-on:click="/*swapComponent('view-04')*/" data-toggle="modal" data-target="#app-modal2">
+          <button class="btn app-button btn-block" type="submit" v-on:click="/*swapComponent('view-04')*/ $parent.modalMessage = 'Opcja niedostępna. Przepraszamy!'" data-toggle="modal" data-target="#app-modal-warning">
               <i class="fa fa-archive app-fa-menu"></i>ARCHIWUM
           </button>
           <!--button class="btn app-button btn-block" type="submit" v-on:click="">
@@ -29,11 +29,11 @@ var View00 = { // ekran ładowania
           </button-->
         </div>
       <div class="col-12 align-self-end app-div-margins">
-        <button class="btn app-button btn-block" type="submit" data-toggle="modal" data-target="#app-modal1">
+        <button class="btn app-button btn-block" type="submit" v-on:click="$parent.modalMessage = 'Aby zakończyć zamknij kartę w przeglądarce'" data-toggle="modal" data-target="#app-modal-warning">
             <i class="fa fa-window-close app-fa-menu"></i>KONIEC
         </button>
       </div>
-      <div class="modal fade" id="app-modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="app-modal-warning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -42,29 +42,13 @@ var View00 = { // ekran ładowania
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">Aby zakończyć zamknij kartę w przeglądarce</div>
+                <div class="modal-body">{{this.$parent.modalMessage}}</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
                 </div>
             </div>
           </div>
       </div>
-      <div class="modal fade" id="app-modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">UWAGA</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body"><center>Opcja niedostępna<br />Przepraszamy</center></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
-                </div>
-            </div>
-          </div>
-        </div>
       </div>
     `,
     props: ['swapComponent']
@@ -74,7 +58,8 @@ var View00 = { // ekran ładowania
     props: ['swapComponent']
   }
   var View03 = { // rejestrowanie
-    template: `<div class="row"><div class="col-12 align-self-start app-div-margins"><input type="text" class="form-control app-input" id="user-login" placeholder="Login"><input type="password" class="form-control app-input" id="user-password" placeholder="Hasło"><input type="password" class="form-control app-input" id="user-password2" placeholder="Powtórz hasło"><button class="btn app-button btn-block" type="submit" v-on:click="$parent.userRegistration()"><i class="fa fa-user-plus app-fa-menu"></i>ZAŁÓŻ KONTO</button></div><div class="col-12 align-self-end app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-01')"><i class="fa fa-arrow-left app-fa-menu"></i>POWRÓT</button></div><div class="modal fade" id="app-modal-warning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    template: `<div class="row"><div class="col-12 align-self-start app-div-margins"><input type="text" class="form-control app-input" id="user-login" placeholder="Login"><input type="password" class="form-control app-input" id="user-password" placeholder="Hasło"><input type="password" class="form-control app-input" id="user-password2" placeholder="Powtórz hasło"><button class="btn app-button btn-block" type="submit" v-on:click="$parent.userRegistration()"><i class="fa fa-user-plus app-fa-menu"></i>ZAŁÓŻ KONTO</button></div><div class="col-12 align-self-end app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-01')"><i class="fa fa-arrow-left app-fa-menu"></i>POWRÓT</button></div>
+    <div class="modal fade" id="app-modal-warning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
               <div class="modal-header">
@@ -951,8 +936,29 @@ var View00 = { // ekran ładowania
                 $('#app-modal-warning').modal()
             }
             else {
-                console.log('wszystko ok')
+                var sha1 = require('sha1');
+                pass = sha1(pass)
+                var xhttp = new XMLHttpRequest()
+                xhttp.open("POST", "http://www.matmikus.webd.pl/api.php/create-user", false)
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+                xhttp.send('name='+login+'&password='+pass)
+                this.swapComponent('view-03')
+                if(xhttp.status == 200) {
+                    this.modalMessage = 'Konto zostało utworzone pomyślnie!'
+                    $('#app-modal-warning').on('hidden.bs.modal', function () {
+                        this.swapComponent('view-01')
+                    })
+                    $('#app-modal-warning').modal('show')
+                    // this.swapComponent('view-01')
+                    // alert(this.modalMessage)
+                } else {
+                    this.modalMessage = 'Wystąpił błąd i konto nie zostało utworzone'
+                    $('#app-modal-warning').modal()
+                }
             }
+        },
+        userSignIn: function() {
+            
         }
       },
       created: function() {
