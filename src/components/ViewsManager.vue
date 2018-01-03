@@ -18,7 +18,7 @@ var View00 = { // ekran ładowania
           <button class="btn app-button btn-block" type="submit" v-on:click="/*swapComponent('view-02')*/" data-toggle="modal" data-target="#app-modal2">
               <i class="fa fa-user app-fa-menu"></i>LOGOWANIE
           </button>
-          <button class="btn app-button btn-block" type="submit" v-on:click="/*swapComponent('view-03')*/" data-toggle="modal" data-target="#app-modal2">
+          <button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-03')">
               <i class="fa fa-user-plus app-fa-menu"></i>REJESTRACJA
           </button>
           <button class="btn app-button btn-block" type="submit" v-on:click="/*swapComponent('view-04')*/" data-toggle="modal" data-target="#app-modal2">
@@ -74,7 +74,22 @@ var View00 = { // ekran ładowania
     props: ['swapComponent']
   }
   var View03 = { // rejestrowanie
-    template: `<div class="row"><div class="col-12 align-self-start app-div-margins"><input type="text" class="form-control app-input" id="user-login" placeholder="Login"><input type="password" class="form-control app-input" id="user-password" placeholder="Hasło"><input type="password" class="form-control app-input" id="user-password2" placeholder="Powtórz hasło"><button class="btn app-button btn-block" type="submit" v-on:click=""><i class="fa fa-user-plus app-fa-menu"></i>ZAŁÓŻ KONTO</button></div><div class="col-12 align-self-end app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-01')"><i class="fa fa-arrow-left app-fa-menu"></i>POWRÓT</button></div></div>`,
+    template: `<div class="row"><div class="col-12 align-self-start app-div-margins"><input type="text" class="form-control app-input" id="user-login" placeholder="Login"><input type="password" class="form-control app-input" id="user-password" placeholder="Hasło"><input type="password" class="form-control app-input" id="user-password2" placeholder="Powtórz hasło"><button class="btn app-button btn-block" type="submit" v-on:click="$parent.userRegistration()"><i class="fa fa-user-plus app-fa-menu"></i>ZAŁÓŻ KONTO</button></div><div class="col-12 align-self-end app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-01')"><i class="fa fa-arrow-left app-fa-menu"></i>POWRÓT</button></div><div class="modal fade" id="app-modal-warning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">UWAGA</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">{{this.$parent.modalMessage}}</div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+              </div>
+          </div>
+        </div>
+    </div></div>`,
     props: ['swapComponent']
   }
   var View04 = { // archiwum
@@ -115,23 +130,7 @@ var View00 = { // ekran ładowania
     props: ['swapComponent']
   }
   var View09 = { // ekran przedmeczowy
-    template: `<div class="row"><div class="col-12 align-self-start app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="$parent.createTempPlayers(); swapComponent('view-07')"><i class="fa fa-list app-fa-menu"></i>WPROWADŹ SKŁAD</button><button class="btn app-button btn-block" type="submit" v-on:click="" data-toggle="modal" data-target="#app-modal1"><i class="fa fa-cloud-download app-fa-menu"></i>WCZYTAJ SKŁAD</button></div><div class="col-12 align-self-end app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="function() { if($parent.checkPlayersList('players')) $parent.createTempPlayers(); swapComponent('view-10'); }"><i class="fa fa-arrow-right app-fa-menu"></i>WYJŚCIOWY SKŁAD</button><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-01')"><i class="fa fa-arrow-left app-fa-menu"></i>POWRÓT</button></div>
-    <div class="modal fade" id="app-modal-warning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">UWAGA</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
-              <div class="modal-body">{{this.$parent.modalMessage}}</div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
-              </div>
-          </div>
-        </div>
-    </div>
+    template: `<div class="row"><div class="col-12 align-self-start app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="$parent.createTempPlayers(); swapComponent('view-07')"><i class="fa fa-list app-fa-menu"></i>WPROWADŹ SKŁAD</button><button class="btn app-button btn-block" type="submit" v-on:click="" data-toggle="modal" data-target="#app-modal1"><i class="fa fa-cloud-download app-fa-menu"></i>WCZYTAJ SKŁAD</button></div><div class="col-12 align-self-end app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="function() { if($parent.checkPlayersList('players')){ $parent.createTempPlayers(); swapComponent('view-10');} }"><i class="fa fa-arrow-right app-fa-menu"></i>WYJŚCIOWY SKŁAD</button><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-01')"><i class="fa fa-arrow-left app-fa-menu"></i>POWRÓT</button></div>
     <div class="modal fade" id="app-modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -146,6 +145,22 @@ var View00 = { // ekran ładowania
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="modal fade" id="app-modal-warning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">UWAGA</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">{{this.$parent.modalMessage}}</div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+              </div>
+          </div>
         </div>
     </div>
     </div>
@@ -220,20 +235,34 @@ var View00 = { // ekran ładowania
                 statsOption1: 1,
                 statsOption2: 0,
                 players: [
-                      {'id':'1','name':'Cwetan Sokołow','active':true},
-                      {'id':'2','name':'Davide Candellaro','active':false},
-                      {'id':'3','name':'Taylor Sander','active':true},
-                      {'id':'4','name':'Andrea Marchisio','active':false},
-                      {'id':'5','name':'Osmany Juantorena','active':true},
-                      {'id':'6','name':'Alberto Casadei','active':false},
-                      {'id':'7','name':'Dragan Stankovic','active':true},
-                      {'id':'9','name':'Jiri Kovar','active':false},
-                      {'id':'10','name':'Jenia Grebennikov','active':false},
-                      {'id':'11','name':'Micah Christenson','active':true},
-                      {'id':'12','name':'Enrico Cester','active':true},
-                      {'id':'22','name':'Sebastiano Milan','active':true},
-                      {'id':'23','name':'Timofiej Żukowski','active':false},
-                      {'id':'','name':'','active':null}
+                          {'id':'1','name':'','active':false},
+                          {'id':'2','name':'','active':false},
+                          {'id':'3','name':'','active':false},
+                          {'id':'4','name':'','active':false},
+                          {'id':'5','name':'','active':false},
+                          {'id':'6','name':'','active':false},
+                          {'id':'','name':'','active':false},
+                          {'id':'','name':'','active':false},
+                          {'id':'','name':'','active':false},
+                          {'id':'','name':'','active':false},
+                          {'id':'','name':'','active':false},
+                          {'id':'','name':'','active':false},
+                          {'id':'','name':'','active':false},
+                          {'id':'','name':'','active':false}
+                      // {'id':'1','name':'Cwetan Sokołow','active':true},
+                      // {'id':'2','name':'Davide Candellaro','active':false},
+                      // {'id':'3','name':'Taylor Sander','active':true},
+                      // {'id':'4','name':'Andrea Marchisio','active':false},
+                      // {'id':'5','name':'Osmany Juantorena','active':true},
+                      // {'id':'6','name':'Alberto Casadei','active':false},
+                      // {'id':'7','name':'Dragan Stankovic','active':true},
+                      // {'id':'9','name':'Jiri Kovar','active':false},
+                      // {'id':'10','name':'Jenia Grebennikov','active':false},
+                      // {'id':'11','name':'Micah Christenson','active':true},
+                      // {'id':'12','name':'Enrico Cester','active':true},
+                      // {'id':'22','name':'Sebastiano Milan','active':true},
+                      // {'id':'23','name':'Timofiej Żukowski','active':false},
+                      // {'id':'','name':'','active':null}
                 ],
                 playersTemp: [],
                 serve: [
@@ -485,8 +514,6 @@ var View00 = { // ekran ładowania
         createStatsText: function() { // FUNCTION CREATES TEXT DISPLAYING STATISTICS DEPENDING ON OPTION
             var set = this.statsOption1
             var display = this.statsOption2
-            console.log('wyswietlanie statystyk dla seta: ' + set)
-            console.log('opcja wyswietlania: ' + display)
             if(set == 0) {
                 this.setting = [0,0,0,0,0,0]
                 this.serve = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
@@ -886,12 +913,55 @@ var View00 = { // ekran ładowania
             var xyz = setTimeout(function(){
                 self.swapComponent('view-01')
             }, 1500);
+        },
+        userRegistration: function() {
+            var login = document.getElementById('user-login').value
+            var pass = document.getElementById('user-password').value
+            var pass2 = document.getElementById('user-password2').value
+            // validation:
+            if(login == "") {
+                this.modalMessage = 'Nie wpisano loginu'
+                $('#app-modal-warning').modal()
+                return 0;
+            }
+            if(pass == "") {
+                this.modalMessage = 'Nie wpisano hasła'
+                $('#app-modal-warning').modal()
+                return 0;
+            }
+            if(pass2 == "") {
+                this.modalMessage = 'Nie wpisano powtórzonego hasła'
+                $('#app-modal-warning').modal()
+                return 0;
+            }
+            if(pass != pass2) {
+                this.modalMessage = 'Hasła nie są identyczne'
+                $('#app-modal-warning').modal()
+                return 0;
+            }
+            this.swapComponent('view-00')
+            var xhttp = new XMLHttpRequest()
+            xhttp.open("POST", "http://www.matmikus.webd.pl/api.php/get-user", false)
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+            xhttp.send('name='+login)
+            this.swapComponent('view-03')
+            // console.log(xhttp.status)
+            if(xhttp.status != 204) {
+                this.modalMessage = 'Login jest już zajęty'
+                $('#app-modal-warning').modal()
+            }
+            else {
+                console.log('wszystko ok')
+            }
         }
       },
       created: function() {
           if(localStorage.getItem('currentComponent') !== null) this.currentComponent = JSON.parse(localStorage.getItem('currentComponent'))
           if(localStorage.getItem('previousComponent') !== null) this.previousComponent = JSON.parse(localStorage.getItem('previousComponent'))
-          if(localStorage.getItem('currentSet') !== null) this.currentSet = JSON.parse(localStorage.getItem('currentSet'))
+          if(localStorage.getItem('currentSet') !== null) {
+              this.currentSet = JSON.parse(localStorage.getItem('currentSet'))
+              this.statsOption1 = JSON.parse(localStorage.getItem('currentSet'))
+          }
           if(this.currentSet > 0) this.currentComponent = "view-11"
           else {
               this.currentComponent = "view-00"
