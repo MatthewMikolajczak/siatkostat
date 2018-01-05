@@ -24,7 +24,7 @@ var View00 = { // ekran ładowania
           <button v-if="this.$parent.userID != false" class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-04')">
               <i class="fa fa-archive app-fa-menu"></i>ARCHIWUM
           </button>
-          <button v-if="this.$parent.userID != false" class="btn app-button btn-block" type="submit" v-on:click="$parent.userID = false">
+          <button v-if="this.$parent.userID != false" class="btn app-button btn-block" type="submit" v-on:click="$parent.userID = false; this.localStorage.removeItem('uid');">
               <i class="fa fa-user app-fa-menu"></i>WYLOGUJ
           </button>
         </div>
@@ -267,6 +267,22 @@ var View00 = { // ekran ładowania
           </div>
         </div>
     </div>
+    <div class="modal fade" id="app-modal-warning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">UWAGA</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">{{this.$parent.modalMessage}}</div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+              </div>
+          </div>
+        </div>
+    </div>
     </div>`,
     props: ['swapComponent']
   }
@@ -301,7 +317,7 @@ var View00 = { // ekran ładowania
              return {
                 currentComponent: '',
                 previousComponent: '',
-                userID: 1,
+                userID: false,
                 archive: [],
                 savedPlayers: [],
                 modalMessage: '',
@@ -633,7 +649,7 @@ var View00 = { // ekran ładowania
             attackArray.sort(function (a,b) { let comparison = 0; if(a.attack3 < b.attack3) {comparison = 1} else if(b.attack3 < a.attack3) {comparison = -1} return comparison })
             // block variables
             var blockArray = []
-            for(var player in this.player) {
+            for(var player in this.players) {
                 blockArray.push({'index':player, 'id':this.players[player].id, 'name':this.players[player].name, 'block0':0, 'block1':0})
             }
             for(var player in blockArray) {
@@ -917,7 +933,9 @@ var View00 = { // ekran ładowania
         resetApp: function() {
             localStorage.clear()
             Object.assign(this.$data, this.$options.data.call(this))
+            this.players = []
             this.resetStats()
+            localStorage.setItem('uid',this.encryptID(this.userID))
             this.swapComponent('view-01')
         },
         resetStats: function() {
@@ -1028,6 +1046,7 @@ var View00 = { // ekran ładowania
                 var sha1 = require('sha1');
                 if(user[0].password == sha1(pass)) {
                     this.userID = user[0].ID
+                    localStorage.setItem('uid',this.encryptID(user[0].ID))
                     this.modalMessage = 'Witaj ' + login + '! Zalogowano poprawnie'
                     var $self = this
                     $('#app-modal-warning').modal()
@@ -1231,13 +1250,6 @@ var View00 = { // ekran ładowania
             var block = []
             var setting = []
 
-            // this.setting = [0,0,0,0,0,0]
-            // this.serve = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
-            // this.attack = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
-            // this.block = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]
-            // this.reception = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]
-
-
             if(localStorage.getItem('serve1') !== null) var serve1 = JSON.parse(localStorage.getItem('serve1'))
             else var serve1 = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
             if(localStorage.getItem('reception1') !== null) var reception1 = JSON.parse(localStorage.getItem('reception1'))
@@ -1308,22 +1320,28 @@ var View00 = { // ekran ładowania
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
             xhttp.send('userID='+this.userID+'&gameName='+gameName+'&scoreA='+scoreA+'&scoreB='+scoreB+'&players='+players+'&serve='+serve+'&reception='+reception+'&attack='+attack+'&block='+block+'&setting='+setting)
             if(xhttp.status == 200) {
-                console.log('zuploadowano pomyślnie staty')
-                // this.modalMessage = 'Pomyślnie zapisano zawodników'
-                // var $self = this
-                // $('#app-modal-warning').modal()
-                // $('#app-modal-warning').on('hidden.bs.modal', function () {
-                //     $self.swapComponent('previous')
-                // })
+                this.modalMessage = 'Pomyślnie zapisano statystyki w archiwum'
+                var $self = this
+                $('#app-modal-warning').modal()
+                $('#app-modal-warning').on('hidden.bs.modal', function () {
+                    $self.resetApp()
+                })
             }
             if(xhttp.status == 500) {
-                console.log('błąd przy uploadowaniu statów')
-                // this.modalMessage = 'Wystąpił błąd i zawodnicy nie zostali zapisani'
-                // $('#app-modal-warning').modal()
+                $('#app-modal3').modal()
             }
+        },
+        encryptID: function(id) {
+            var crypto = (((parseInt(id)+4)*17-12)*2+278)*30+9
+            return crypto
+        },
+        decryptID: function(id) {
+            var crypto = (((parseInt(id)-9)/30-278)/2+12)/17-4
+            return crypto
         }
       },
       created: function() {
+          if(localStorage.getItem('uid') !== null) this.userID = this.decryptID(localStorage.getItem('uid'))
           if(localStorage.getItem('currentComponent') !== null) this.currentComponent = JSON.parse(localStorage.getItem('currentComponent'))
           if(localStorage.getItem('previousComponent') !== null) this.previousComponent = JSON.parse(localStorage.getItem('previousComponent'))
           if(localStorage.getItem('currentSet') !== null) {
