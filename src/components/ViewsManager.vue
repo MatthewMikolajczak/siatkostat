@@ -27,6 +27,9 @@ var View00 = { // ekran ładowania
           <button v-if="this.$parent.userID != false" class="btn app-button btn-block" type="submit" v-on:click="$parent.userID = false; this.localStorage.removeItem('uid');">
               <i class="fa fa-user app-fa-menu"></i>WYLOGUJ
           </button>
+          <button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-15')">
+              <i class="fa fa-info-circle app-fa-menu"></i>INFORMACJE
+          </button>
         </div>
       <div class="col-12 align-self-end app-div-margins">
         <button class="btn app-button btn-block" type="submit" v-on:click="$parent.modalMessage = 'Aby zakończyć zamknij kartę w przeglądarce'" data-toggle="modal" data-target="#app-modal-warning">
@@ -54,7 +57,7 @@ var View00 = { // ekran ładowania
     props: ['swapComponent']
   }
   var View02 = { // logowanie
-      template: `<div class="row"><div class="col-12 align-self-start app-div-margins"><input type="text" class="form-control app-input" id="user-login" placeholder="Login"><input type="password" class="form-control app-input" id="user-password" placeholder="Hasło"><button class="btn app-button btn-block" type="submit" v-on:click="$parent.userSignIn()"><i class="fa fa-user-plus app-fa-menu"></i>ZALOGUJ</button></div><div class="col-12 align-self-end app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-01')"><i class="fa fa-arrow-left app-fa-menu"></i>POWRÓT</button></div>
+      template: `<div class="row"><div class="col-12 align-self-start app-div-margins"><input type="text" class="form-control app-input" id="user-login" placeholder="Login" maxlength="20"><input type="password" class="form-control app-input" id="user-password" placeholder="Hasło"maxlength="20"><button class="btn app-button btn-block" type="submit" v-on:click="$parent.userSignIn()"><i class="fa fa-user-plus app-fa-menu"></i>ZALOGUJ</button></div><div class="col-12 align-self-end app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-01')"><i class="fa fa-arrow-left app-fa-menu"></i>POWRÓT</button></div>
       <div class="modal fade" id="app-modal-warning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -310,6 +313,14 @@ var View00 = { // ekran ładowania
     template: `<div class="row"><div class="col-12 align-self-start app-div-margins"><div class="set-opponent"></div><div class="set-net"></div><div id="app-set-div"><div class="button-group set-field"><button class="btn app-set-button" type="submit" v-on:click="$parent.addSetting(4); swapComponent('view-11')">IV</button><button class="btn app-set-button" type="submit" v-on:click="$parent.addSetting(3); swapComponent('view-11')">III</button><button class="btn app-set-button" type="submit" v-on:click="$parent.addSetting(2); swapComponent('view-11')">II</button></div><div class="button-group set-field"><button class="btn app-set-button" type="submit" v-on:click="$parent.addSetting(5); swapComponent('view-11')">V</button><button class="btn app-set-button" type="submit" v-on:click="$parent.addSetting(6); swapComponent('view-11')">VI</button><button class="btn app-set-button" type="submit" v-on:click="$parent.addSetting(1); swapComponent('view-11')">I</button></div></div></div><div class="col-12 align-self-end app-div-margins"><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('view-11')"><i class="fa fa-arrow-left app-fa-menu"></i>POWRÓT</button></div></div>`,
     props: ['swapComponent']
   }
+  var View15 = { // informacje (instrukcja i kontakt)
+      template: `<div class="row"><div class="col-12 align-self-start app-div-margins app-div-scrollbar2">
+      <div class="stats"><b>Kontakt z autorem:</b><br><div style="word-break: break-all">mateusz.mikolajczak@yahoo.com</div></div>
+      <div class="stats"><b>Instrukcja korzystania:</b><br>Siatkostat umożliwia szybkie dodawanie i analizę statystyk dla jednego zespołu, biorąc pod uwagę elementy: zagrywki, przyjęcia, rozegrania, ataku i bloku. Aby rozegrać mecz należy uruchomić NOWY MECZ, wprowadzić skład i wybrać zawodników pierwszego składu. Aby mieć możliwość archiwizacji statystyk po zakończonym meczu, należy jeszcze przed meczem zarejestrować nowe konto i zalogować się na nie.</div>
+      </div><div class="col-12 align-self-end app-div-margins app-div-underscrollbar"><button class="btn app-button btn-block" type="submit" v-on:click="swapComponent('previous')"><i class="fa fa-arrow-left app-fa-menu"></i>POWRÓT</button></div>
+      </div>`,
+    props: ['swapComponent']
+  }
 
     export default {
         name: 'viewsManager',
@@ -329,6 +340,7 @@ var View00 = { // ekran ładowania
                 statsText: '',
                 statsOption1: 1,
                 statsOption2: 0,
+                domain: null,
                 players: [
                           {'id':'1','name':'','active':false},
                           {'id':'2','name':'','active':false},
@@ -371,14 +383,15 @@ var View00 = { // ekran ładowania
               'view-13r': View13r,
               'view-13a': View13a,
               'view-13b': View13b,
-              'view-14': View14
+              'view-14': View14,
+              'view-15': View15
         },
         methods: {
           swapComponent: function(component) { // FUNCTION IS USED FOR SHOWING SELECTED VIEW
             if (component == 'previous') component = this.previousComponent;
             if(this.currentComponent != 'view-00') this.previousComponent = this.currentComponent
             this.currentComponent = component
-            this.saveRoutesLocal()
+            // this.saveRoutesLocal()
           },
           saveRoutesLocal: function() { // FUNCTION SAVES ACTUAL AND PREVIOUS VIEWS IN CASE OF CLOSING THE APP
             localStorage.setItem('currentComponent', JSON.stringify(this.currentComponent))
@@ -931,26 +944,15 @@ var View00 = { // ekran ładowania
             }
         },
         resetApp: function() {
-            localStorage.clear()
             Object.assign(this.$data, this.$options.data.call(this))
-            this.players = []
-            this.resetStats()
-            localStorage.setItem('uid',this.encryptID(this.userID))
-            this.swapComponent('view-01')
+            localStorage.clear()
+            // this.resetStats()
+            // this.swapComponent('view-01')
+            location.reload()
         },
         resetStats: function() {
-            for(var i = 1; i <= 5; i++) {
-                var name = 'setting' + i
-                localStorage.removeItem(name)
-                var name = 'attack' + i
-                localStorage.removeItem(name)
-                var name = 'block' + i
-                localStorage.removeItem(name)
-                var name = 'reception' + i
-                localStorage.removeItem(name)
-                var name = 'serve' + i
-                localStorage.removeItem(name)
-            }
+            localStorage.clear()
+            localStorage.setItem('uid',this.encryptID(this.userID))
             this.serve = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
             this.reception = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]
             this.attack = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
@@ -990,7 +992,7 @@ var View00 = { // ekran ładowania
             }
             this.swapComponent('view-00')
             var xhttp = new XMLHttpRequest()
-            xhttp.open("POST", "http://www.matmikus.webd.pl/api.php/get-user", false)
+            xhttp.open("POST", this.domain + "api.php/get-user", false)
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
             xhttp.send('name='+login)
             this.swapComponent('view-03')
@@ -1002,7 +1004,7 @@ var View00 = { // ekran ładowania
                 var sha1 = require('sha1')
                 pass = sha1(pass)
                 var xhttp = new XMLHttpRequest()
-                xhttp.open("POST", "http://www.matmikus.webd.pl/api.php/create-user", false)
+                xhttp.open("POST", this.domain + "api.php/create-user", false)
                 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
                 xhttp.send('name='+login+'&password='+pass)
                 this.swapComponent('view-03')
@@ -1034,7 +1036,7 @@ var View00 = { // ekran ładowania
                 return 0;
             }
             var xhttp = new XMLHttpRequest()
-            xhttp.open("POST", "http://www.matmikus.webd.pl/api.php/get-user", false)
+            xhttp.open("POST", this.domain + "api.php/get-user", false)
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
             xhttp.send('name='+login)
             if(xhttp.status == 204) {
@@ -1088,7 +1090,7 @@ var View00 = { // ekran ładowania
             pass = sha1(pass)
             oldpass = sha1(oldpass)
             var xhttp = new XMLHttpRequest()
-            xhttp.open("POST", "http://www.matmikus.webd.pl/api.php/set-password", false)
+            xhttp.open("POST", this.domain + "api.php/set-password", false)
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
             xhttp.send('userID='+this.userID+'&oldpassword='+oldpass+'&password='+pass)
             if(xhttp.status == 200) {
@@ -1109,7 +1111,7 @@ var View00 = { // ekran ładowania
         loadArchive: function() {
             this.archive = []
             var xhttp = new XMLHttpRequest()
-            xhttp.open("POST", "http://www.matmikus.webd.pl/api.php/get-games", false)
+            xhttp.open("POST", this.domain + "api.php/get-games", false)
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
             xhttp.send('userID='+this.userID)
             if(xhttp.status == 200) {
@@ -1135,7 +1137,7 @@ var View00 = { // ekran ładowania
         loadSavedPlayers: function(where) {
             this.playersTemp = []
             var xhttp = new XMLHttpRequest()
-            xhttp.open("POST", "http://www.matmikus.webd.pl/api.php/get-saved_players", false)
+            xhttp.open("POST", this.domain + "api.php/get-saved_players", false)
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
             xhttp.send('userID='+this.userID)
             if(xhttp.status == 200) {
@@ -1160,7 +1162,7 @@ var View00 = { // ekran ładowania
         savePlayers: function() {
             var playersJSON = JSON.stringify(this.playersTemp)
             var xhttp = new XMLHttpRequest()
-            xhttp.open("POST", "http://www.matmikus.webd.pl/api.php/set-saved_players", false)
+            xhttp.open("POST", this.domain + "api.php/set-saved_players", false)
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
             xhttp.send('userID='+this.userID+'&playersJSON='+playersJSON)
             if(xhttp.status == 200) {
@@ -1190,7 +1192,7 @@ var View00 = { // ekran ładowania
                 localStorage.removeItem(name)
             }
             var xhttp = new XMLHttpRequest()
-            xhttp.open("POST", "http://www.matmikus.webd.pl/api.php/get-stats", false)
+            xhttp.open("POST", this.domain + "api.php/get-stats", false)
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
             xhttp.send('gameID='+id)
             if(xhttp.status == 200) {
@@ -1316,7 +1318,7 @@ var View00 = { // ekran ładowania
             setting = JSON.stringify(setting)
 
             var xhttp = new XMLHttpRequest()
-            xhttp.open("POST", "http://www.matmikus.webd.pl/api.php/create-stats", false)
+            xhttp.open("POST", this.domain + "api.php/create-stats", false)
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
             xhttp.send('userID='+this.userID+'&gameName='+gameName+'&scoreA='+scoreA+'&scoreB='+scoreB+'&players='+players+'&serve='+serve+'&reception='+reception+'&attack='+attack+'&block='+block+'&setting='+setting)
             if(xhttp.status == 200) {
@@ -1341,9 +1343,9 @@ var View00 = { // ekran ładowania
         }
       },
       created: function() {
+          this.domain = window.location.href
+          // this.domain = 'http://www.mateuszmikolajczak.pl/' // for developing on localhost
           if(localStorage.getItem('uid') !== null) this.userID = this.decryptID(localStorage.getItem('uid'))
-          if(localStorage.getItem('currentComponent') !== null) this.currentComponent = JSON.parse(localStorage.getItem('currentComponent'))
-          if(localStorage.getItem('previousComponent') !== null) this.previousComponent = JSON.parse(localStorage.getItem('previousComponent'))
           if(localStorage.getItem('currentSet') !== null) {
               this.currentSet = JSON.parse(localStorage.getItem('currentSet'))
               this.statsOption1 = JSON.parse(localStorage.getItem('currentSet'))

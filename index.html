@@ -1,17 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Siatkostat</title>
-    <link rel="shortcut icon" type="image/png" href="src/assets/img/favicon.png"/>
-    <link rel="stylesheet" href="src/assets/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="src/assets/font-awesome-4.7.0/css/font-awesome.min.css">
-  </head>
-  <body>
-    <div id="app" class="container"></div>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Siatkostat</title>
+  <link rel="shortcut icon" type="image/png" href="src/assets/img/favicon.png" />
+  <link rel="stylesheet" href="src/assets/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="src/assets/font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <noscript>
+        <center><h3><br>UWAGA<br><br>TWOJA PRZEGLĄDARKA JEST NIEODPOWIEDNIA DLA TEJ APLIKACJI</h3></center>
+    </noscript>
+    <div id="nocookies"></div>
+    <script>
+        if(navigator.cookieEnabled != true) document.getElementById('nocookies').innerHTML = '<center><h3><br>UWAGA<br><br>TWOJA PRZEGLĄDARKA JEST NIEODPOWIEDNIA DLA TEJ APLIKACJI</h3></center>';
+    </script>
+    <div id="app" class="container">
+    </div>
     <script src="src/assets/bootstrap/jquery-3.1.1.slim.min.js"></script>
     <script src="src/assets/bootstrap/tether.min.js"></script>
     <script src="src/assets/bootstrap/bootstrap.min.js"></script>
-  </body>
+</body>
+
 </html>
